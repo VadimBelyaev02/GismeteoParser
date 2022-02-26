@@ -1,5 +1,7 @@
 package com.vadim.weatherparser;
 
+import com.vadim.weatherparser.storage.impl.CityStorageImpl;
+
 import java.util.List;
 
 public class CityServiceImpl implements CityService {

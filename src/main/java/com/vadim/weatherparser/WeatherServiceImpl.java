@@ -1,7 +1,7 @@
 package com.vadim.weatherparser;
 
 import com.vadim.weatherparser.exception.NotFoundException;
-import org.springframework.stereotype.Component;
+import com.vadim.weatherparser.storage.impl.WeatherStorageImpl;
 
 import java.util.Comparator;
 import java.util.List;
@@ -10,10 +10,10 @@ import java.util.stream.Collectors;
 
 public class WeatherServiceImpl implements WeatherService {
 
-    private final WeatherStorage storage;
+    private final WeatherStorageImpl storage;
 
     public WeatherServiceImpl(String city) {
-        storage = new WeatherStorage(city);
+        storage = new WeatherStorageImpl(city);
     }
 
     @Override
@@ -46,10 +46,14 @@ public class WeatherServiceImpl implements WeatherService {
     }
 
     public Weather getColdest(boolean isDay) {
+        Optional<Weather> weatherOptional;
         if (isDay) {
-            Optional<Weather> weatherOptional = storage.getWeathers().stream().min(Comparator.comparingInt(Weather::getMaxTemp))
+            weatherOptional = storage.getWeathers().stream().min(Comparator.comparingInt(Weather::getMaxTemp));
         }
-        return null;
+        else {
+            weatherOptional = storage.getWeathers().stream().min(Comparator.comparingInt(Weather::getMinTemp));
+        }
+        return weatherOptional.orElseThrow(() -> new NotFoundException("Weather is not found"));
     }
 
 

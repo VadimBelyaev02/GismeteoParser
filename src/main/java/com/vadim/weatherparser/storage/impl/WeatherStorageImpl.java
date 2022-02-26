@@ -1,6 +1,9 @@
-package com.vadim.weatherparser;
+package com.vadim.weatherparser.storage.impl;
 
+import com.vadim.weatherparser.Weather;
+import com.vadim.weatherparser.WeatherParser;
 import com.vadim.weatherparser.exception.NotFoundException;
+import com.vadim.weatherparser.storage.WeatherStorage;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -11,16 +14,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class WeatherStorage {
+public class WeatherStorageImpl implements WeatherStorage {
 
     private List<Weather> weathers;
     private final String URL;
 
-    public WeatherStorage(String URL) {
+    public WeatherStorageImpl(String URL) {
         this.URL = URL;
         loadWeather();
     }
 
+    @Override
     public void loadWeather() {
         WeatherParser parser = new WeatherParser();
         try {
@@ -32,12 +36,14 @@ public class WeatherStorage {
         }
     }
 
+    @Override
     public Weather getDayWeather(int day) {
         return weathers.stream().filter(a -> a.getDate().equals(day)).findFirst().orElseThrow(() ->
                 new NotFoundException("The weather in this day is not found")
         );
     }
 
+    @Override
     public List<Weather> getWeathers() {
         return weathers;
     }

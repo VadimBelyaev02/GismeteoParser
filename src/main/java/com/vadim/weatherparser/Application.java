@@ -20,10 +20,6 @@ public class Application {
         printChoice();
         int choice = scanner.nextInt();
 
-        weatherService.getWeathers().forEach(System.out::println);
-
-        Thread.sleep(1000000000);
-
         switch (choice) {
             case 1:
                 System.out.println("Enter a day: ");

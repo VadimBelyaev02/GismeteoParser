@@ -1,4 +1,4 @@
-package com.vadim.weatherparser;
+package com.vadim.weatherparser.application;
 
 import com.vadim.weatherparser.model.Weather;
 import com.vadim.weatherparser.service.impl.CityServiceImpl;

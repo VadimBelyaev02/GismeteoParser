@@ -19,10 +19,9 @@ public class CityStorageImpl implements CityStorage {
 
     @Override
     public void loadCities() {
-        Document document = null;
         try {
             String URL = "https://www.gismeteo.by";
-            document = Jsoup.connect(URL).get();
+            Document document = Jsoup.connect(URL).get();
             Element tagWithAllCities = document.select("div[class=widget widget-cities]").first();
             cities = tagWithAllCities.select("div[class=list]")
                     .select("a[class=link]").stream()
@@ -30,7 +29,6 @@ public class CityStorageImpl implements CityStorage {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     @Override

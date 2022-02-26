@@ -9,6 +9,7 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class WeatherStorage {
 
@@ -24,17 +25,8 @@ public class WeatherStorage {
         WeatherParser parser = new WeatherParser();
         try {
             Document document = Jsoup.connect(URL).get();
-            Element element = document.select("div[class=widget widget-month]").first();//.select("a[class=row-item]");
-
+            Element element = Objects.requireNonNull(document.select("div[class=widget widget-month]").first());
             this.weathers = parser.toListWeather(element);
-            //            for (Element element : elements) {
-//                weathers.add(parser.toWeather(element));
-//            }
-
-
-        //    weathers = parser.toWeather2(element);
-
-        //    elements.forEach(System.out::println);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -42,7 +34,7 @@ public class WeatherStorage {
 
     public Weather getDayWeather(int day) {
         return weathers.stream().filter(a -> a.getDate().equals(day)).findFirst().orElseThrow(() ->
-                new NotFoundException("Not found")
+                new NotFoundException("The weather in this day is not found")
         );
     }
 

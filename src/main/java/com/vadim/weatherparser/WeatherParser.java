@@ -33,12 +33,16 @@ public class WeatherParser {
         int maxTemp;
         int temp = 1;
 
-        for (int i = 0; i < rowItems.size() - 7; i += 7) {
+        for (int i = 0; i < rowItems.size(); i += 7) {
             for (int j = 0; j < 7; j++) {
                 if (current > 7) {
                     current = 1;
                 }
-                String tag = "div[class=date item-day-" + current++ + "]";
+                String tag = "div[class=date item-day-" + current + "]";
+                if (rowItems.get(i + j).select(tag).first() == null) {
+                    tag = "div[class=date item-day-" + current + " bold]";
+                }
+                current++;
                 System.out.println(tag);
                 System.out.println(rowItems.get(i + j).select(tag).first());
                 date = Integer.parseInt(rowItems.get(i + j).select(tag).text().split(" ")[0]);
@@ -57,9 +61,7 @@ public class WeatherParser {
                 weathers.add(weather);
             }
         } // Минск
-//
-//        weathers.forEach(System.out::println);
-//        //element.select("div[class=date item-day-").forEach(System.out::println);
+        // WILL BE REFACTORED !!!
         return weathers;
     }
 

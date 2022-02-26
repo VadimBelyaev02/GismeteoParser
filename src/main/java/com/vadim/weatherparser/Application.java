@@ -20,11 +20,11 @@ public class Application {
         printChoice();
         int choice = scanner.nextInt();
 
-         weatherService.getWeathers().forEach(System.out::println);
+        weatherService.getWeathers().forEach(System.out::println);
 
-         Thread.sleep(1000000000);
+        Thread.sleep(1000000000);
 
-         switch (choice) {
+        switch (choice) {
             case 1:
                 System.out.println("Enter a day: ");
                 int day = scanner.nextInt();
@@ -36,18 +36,26 @@ public class Application {
                 weathers.forEach(System.out::println);
                 break;
             case 3:
-                weather = weatherService.getHottestDay();
+                weather = weatherService.getHottest(true);
                 System.out.println(weather);
                 break;
             case 4:
-                weather = weatherService.getColdestDay();
+                weather = weatherService.getHottest(false);
                 System.out.println(weather);
                 break;
             case 5:
+                weather = weatherService.getColdest(true);
+                System.out.println(weather);
+                break;
+            case 6:
+                weather = weatherService.getColdest(false);
+                System.out.println(weather);
+                break;
+            case 7:
                 weathers = weatherService.getSortedWeather(true);
                 weathers.forEach(System.out::println);
                 break;
-            case 6:
+            case 8:
                 weathers = weatherService.getSortedWeather(false);
                 weathers.forEach(System.out::println);
                 break;
@@ -58,9 +66,11 @@ public class Application {
         System.out.println("1 - Get the weather in the day");
         System.out.println("2 - Get the weather for the month");
         System.out.println("3 - Get the hottest day");
-        System.out.println("4 - Get the coldest day");
-        System.out.println("5 - Sort by increasing degrees");
-        System.out.println("6 - Sort by decreasing degrees");
+        System.out.println("4 - Get the hottest night");
+        System.out.println("5 - Get the coldest day");
+        System.out.println("6 - Get the coldest night");
+        System.out.println("7 - Sort by increasing degrees");
+        System.out.println("8 - Sort by decreasing degrees");
     }
 
     public static void printCities() {

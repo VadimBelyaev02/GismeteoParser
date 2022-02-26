@@ -1,9 +1,11 @@
 package com.vadim.weatherparser;
 
+import com.vadim.weatherparser.exception.NotFoundException;
 import org.springframework.stereotype.Component;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class WeatherServiceImpl implements WeatherService {
@@ -11,7 +13,7 @@ public class WeatherServiceImpl implements WeatherService {
     private final WeatherStorage storage;
 
     public WeatherServiceImpl(String city) {
-         storage = new WeatherStorage(city);
+        storage = new WeatherStorage(city);
     }
 
     @Override
@@ -32,12 +34,22 @@ public class WeatherServiceImpl implements WeatherService {
         return storage.getWeathers();
     }
 
-    public Weather getHottestDay() {
-        return storage.getWeathers().stream().min(Comparator.comparingInt(Weather::getMaxTemp)).get();
+    public Weather getHottest(boolean isDay) {
+        Optional<Weather> optionalWeather;
+        if (isDay) {
+            optionalWeather = storage.getWeathers().stream().max(Comparator.comparingInt(Weather::getMaxTemp));
+        }
+        else {
+            optionalWeather = storage.getWeathers().stream().max(Comparator.comparingInt(Weather::getMinTemp));
+        }
+        return optionalWeather.orElseThrow(() -> new NotFoundException("Weather is not found"));
     }
-    
-    public Weather getColdestDay() {
-        return storage.getWeathers().stream().max(Comparator.comparingInt(Weather::getMinTemp)).get();
+
+    public Weather getColdest(boolean isDay) {
+        if (isDay) {
+            Optional<Weather> weatherOptional = storage.getWeathers().stream().min(Comparator.comparingInt(Weather::getMaxTemp))
+        }
+        return null;
     }
 
 

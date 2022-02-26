@@ -1,6 +1,8 @@
-package com.vadim.weatherparser;
+package com.vadim.weatherparser.service.impl;
 
+import com.vadim.weatherparser.Weather;
 import com.vadim.weatherparser.exception.NotFoundException;
+import com.vadim.weatherparser.service.WeatherService;
 import com.vadim.weatherparser.storage.impl.WeatherStorageImpl;
 
 import java.util.Comparator;
@@ -21,19 +23,22 @@ public class WeatherServiceImpl implements WeatherService {
         return null;
     }
 
-
+    @Override
     public Weather getDayWeather(int day) {
         return storage.getDayWeather(day);
     }
 
+    @Override
     public List<Weather> getMonthWeather() {
         return storage.getWeathers();
     }
 
+    @Override
     public List<Weather> getWeathers() {
         return storage.getWeathers();
     }
 
+    @Override
     public Weather getHottest(boolean isDay) {
         Optional<Weather> optionalWeather;
         if (isDay) {
@@ -45,6 +50,7 @@ public class WeatherServiceImpl implements WeatherService {
         return optionalWeather.orElseThrow(() -> new NotFoundException("Weather is not found"));
     }
 
+    @Override
     public Weather getColdest(boolean isDay) {
         Optional<Weather> weatherOptional;
         if (isDay) {
@@ -56,7 +62,7 @@ public class WeatherServiceImpl implements WeatherService {
         return weatherOptional.orElseThrow(() -> new NotFoundException("Weather is not found"));
     }
 
-
+    @Override
     public List<Weather> getSortedWeather(boolean ascending) {
         if (ascending) {
 

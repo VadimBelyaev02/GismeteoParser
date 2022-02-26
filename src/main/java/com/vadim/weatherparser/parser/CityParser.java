@@ -1,4 +1,4 @@
-package com.vadim.weatherparser;
+package com.vadim.weatherparser.parser;
 
 public class CityParser {
 

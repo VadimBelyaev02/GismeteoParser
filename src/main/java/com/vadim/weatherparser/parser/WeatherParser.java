@@ -1,5 +1,6 @@
-package com.vadim.weatherparser;
+package com.vadim.weatherparser.parser;
 
+import com.vadim.weatherparser.Weather;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 

@@ -1,6 +1,8 @@
 package com.vadim.weatherparser;
 
-import java.io.IOException;
+import com.vadim.weatherparser.service.impl.CityServiceImpl;
+import com.vadim.weatherparser.service.impl.WeatherServiceImpl;
+
 import java.util.List;
 import java.util.Scanner;
 

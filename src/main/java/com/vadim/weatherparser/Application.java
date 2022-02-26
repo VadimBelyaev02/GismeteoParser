@@ -1,8 +1,10 @@
 package com.vadim.weatherparser;
 
+import com.vadim.weatherparser.model.Weather;
 import com.vadim.weatherparser.service.impl.CityServiceImpl;
 import com.vadim.weatherparser.service.impl.WeatherServiceImpl;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -50,11 +52,13 @@ public class Application {
                 System.out.println(weather);
                 break;
             case 7:
-                weathers = weatherService.getSortedWeather(true);
+                Comparator<Weather> comparator = (a, b) ->  a.getMaxTemp() - b.getMaxTemp();
+                weathers = weatherService.getSortedWeather(comparator, true);
                 weathers.forEach(System.out::println);
                 break;
             case 8:
-                weathers = weatherService.getSortedWeather(false);
+                comparator = (a, b) ->  a.getMinTemp() - b.getMinTemp();
+                weathers = weatherService.getSortedWeather(comparator, false);
                 weathers.forEach(System.out::println);
                 break;
         }
@@ -67,8 +71,8 @@ public class Application {
         System.out.println("4 - Get the hottest night");
         System.out.println("5 - Get the coldest day");
         System.out.println("6 - Get the coldest night");
-        System.out.println("7 - Sort by increasing degrees");
-        System.out.println("8 - Sort by decreasing degrees");
+        System.out.println("7 - Get sorted day weather");
+        System.out.println("8 - Get sorted night weather");
     }
 
     public static void printCities() {

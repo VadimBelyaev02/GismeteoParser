@@ -1,6 +1,6 @@
 package com.vadim.weatherparser.storage.impl;
 
-import com.vadim.weatherparser.Weather;
+import com.vadim.weatherparser.model.Weather;
 import com.vadim.weatherparser.parser.WeatherParser;
 import com.vadim.weatherparser.exception.NotFoundException;
 import com.vadim.weatherparser.storage.WeatherStorage;

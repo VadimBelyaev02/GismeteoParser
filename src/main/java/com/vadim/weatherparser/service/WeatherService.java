@@ -1,7 +1,8 @@
 package com.vadim.weatherparser.service;
 
-import com.vadim.weatherparser.Weather;
+import com.vadim.weatherparser.model.Weather;
 
+import java.util.Comparator;
 import java.util.List;
 
 public interface WeatherService {
@@ -18,5 +19,5 @@ public interface WeatherService {
 
     Weather getColdest(boolean isDay);
 
-    List<Weather> getSortedWeather(boolean ascending);
+    List<Weather> getSortedWeather(Comparator<Weather> comparator, boolean isDay);
 }

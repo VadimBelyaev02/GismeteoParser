@@ -1,6 +1,6 @@
 package com.vadim.weatherparser.storage;
 
-import com.vadim.weatherparser.Weather;
+import com.vadim.weatherparser.model.Weather;
 
 import java.util.List;
 

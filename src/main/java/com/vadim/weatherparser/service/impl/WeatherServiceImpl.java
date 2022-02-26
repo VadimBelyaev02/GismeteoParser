@@ -1,6 +1,6 @@
 package com.vadim.weatherparser.service.impl;
 
-import com.vadim.weatherparser.Weather;
+import com.vadim.weatherparser.model.Weather;
 import com.vadim.weatherparser.exception.NotFoundException;
 import com.vadim.weatherparser.service.WeatherService;
 import com.vadim.weatherparser.storage.impl.WeatherStorageImpl;
@@ -63,12 +63,9 @@ public class WeatherServiceImpl implements WeatherService {
     }
 
     @Override
-    public List<Weather> getSortedWeather(boolean ascending) {
-        if (ascending) {
-
-        }
+    public List<Weather> getSortedWeather(Comparator<Weather> comparator, boolean isDay) {
         return storage.getWeathers().stream()
-                .sorted(Comparator.comparingInt(Weather::getMaxTemp))
+                .sorted(comparator)
                 .collect(Collectors.toList());
     }
 }

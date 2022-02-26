@@ -1,19 +1,16 @@
 package com.vadim.weatherparser.parser;
 
-import com.vadim.weatherparser.Weather;
+import com.vadim.weatherparser.model.Weather;
 import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class WeatherParser {
 
     public Weather toWeather(Element element) {
-        //Integer dayOfWeek = element.select("div[class=date item-day-*");
         int current = LocalDate.now().getDayOfWeek().getValue();
 
 
@@ -29,10 +26,9 @@ public class WeatherParser {
         DayOfWeek dayOfWeek = LocalDate.now().getDayOfWeek();
 
         int date;
-        int minTemp; //= Integer.parseInt(rowItems.get(0).select("div[class=mint]").text()
-//                .split(" ")[1]);
+        int minTemp;
         int maxTemp;
-        int temp = 1;
+        int tmp = 1;
 
         for (int i = 0; i < rowItems.size(); i += 7) {
             for (int j = 0; j < 7; j++) {
@@ -51,8 +47,8 @@ public class WeatherParser {
                 maxTemp = parseInt(rowItems.get(i + j).select("div[class=maxt]").text()
                         .split(" ")[0]);
                 minTemp = parseInt(rowItems.get(i + j).select("div[class=mint]").text()
-                        .split(" ")[temp]);
-                temp = 0;
+                        .split(" ")[tmp]);
+                tmp = 0;
                 Weather weather = new Weather();
                 weather.setDate(date);
                 weather.setMaxTemp(maxTemp);
@@ -61,7 +57,7 @@ public class WeatherParser {
                 dayOfWeek = dayOfWeek.plus(1);
                 weathers.add(weather);
             }
-        } // Минск
+        }
         // WILL BE REFACTORED !!!
         return weathers;
     }

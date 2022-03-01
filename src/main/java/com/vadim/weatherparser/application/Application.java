@@ -23,7 +23,7 @@ public class Application {
         System.out.print("Enter a city: ");
         String city = scanner.nextLine();
 
-        String cityUrl = "https://www.gismeteo.by" + Objects.requireNonNull(cityService.getCityUrl(city)) + "/month/";
+        String cityUrl = "https://www.gismeteo.by" + cityService.getCityUrl(city) + "/month/";
         WeatherServiceImpl weatherService = new WeatherServiceImpl(cityUrl);
         printChoice();
         int choice = getInteger(0, 8);
@@ -37,7 +37,8 @@ public class Application {
                 break;
             case 2:
                 List<Weather> weathers = weatherService.getMonthWeather();
-                weathers.forEach(System.out::println);
+          //      weathers.forEach(System.out::println);
+                printWeather(weathers);
                 break;
             case 3:
                 weather = weatherService.getHottest(true);
@@ -82,6 +83,10 @@ public class Application {
 
     public static void printCities() {
         List<String> citiesNames = cityService.getCitiesNames();
+        if (Objects.isNull(citiesNames) || citiesNames.size() == 0) {
+            System.out.println("There is no any city!");
+            return;
+        }
         for (int i = 0; i < citiesNames.size(); i++) {
             if (i % 4 == 0) {
                 System.out.println();
@@ -92,6 +97,21 @@ public class Application {
     }
 
     public static void printWeather(List<Weather> weathers) {
+        if (Objects.isNull(weathers) || weathers.size() == 0) {
+            System.out.println("Weather is empty");
+            return;
+        }
+        String horizontalDividingLine = "----------------------------------------------------";
+        String verticalDividingLine = "|\n|\n|";
+        System.out.println("\n***Here is the weather for the next about 30 days***");
+        System.out.println("%-20Date%-20sDay Temperature%-20sNight Temperature%-20sDay of week");
+        System.out.println("");
+        for (Weather weather : weathers) {
+            System.out.println(weather.getMaxTemp());
+            System.out.println(weather.getMaxTemp());
+            System.out.println(weather.getMaxTemp());
+            System.out.println(weather.getMaxTemp());
+        }
 
     }
 

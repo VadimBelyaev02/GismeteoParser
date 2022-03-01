@@ -6,33 +6,37 @@ import com.vadim.weatherparser.service.impl.WeatherServiceImpl;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
+
+import static com.vadim.weatherparser.InputChecker.getInteger;
 
 public class Application {
 
     private final static CityServiceImpl cityService = new CityServiceImpl();
 
-    public static void main(String[] args) throws Throwable {
+    public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Weather weather;
-        List<Weather> weathers;
+      //  Weather weather;
+       // List<Weather> weathers;
         printCities();
         System.out.print("Enter a city: ");
         String city = scanner.nextLine();
-        String cityUrl = "https://www.gismeteo.by" + cityService.getCityUrl(city) + "/month/";
+
+        String cityUrl = "https://www.gismeteo.by" + Objects.requireNonNull(cityService.getCityUrl(city)) + "/month/";
         WeatherServiceImpl weatherService = new WeatherServiceImpl(cityUrl);
         printChoice();
-        int choice = scanner.nextInt();
+        int choice = getInteger(0, 8);
 
         switch (choice) {
             case 1:
                 System.out.println("Enter a day: ");
                 int day = scanner.nextInt();
-                weather = weatherService.getDayWeather(day);
+                Weather weather = weatherService.getDayWeather(day);
                 System.out.println(weather);
                 break;
             case 2:
-                weathers = weatherService.getMonthWeather();
+                List<Weather> weathers = weatherService.getMonthWeather();
                 weathers.forEach(System.out::println);
                 break;
             case 3:
@@ -59,7 +63,8 @@ public class Application {
             case 8:
                 comparator = (a, b) ->  a.getMinTemp() - b.getMinTemp();
                 weathers = weatherService.getSortedWeather(comparator, false);
-                weathers.forEach(System.out::println);
+                //weathers.forEach(System.out::println);
+                printWeather(weathers);
                 break;
         }
     }
@@ -85,4 +90,10 @@ public class Application {
         }
         System.out.println();
     }
+
+    public static void printWeather(List<Weather> weathers) {
+
+    }
+
+
 }

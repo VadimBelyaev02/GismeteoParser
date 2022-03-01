@@ -30,7 +30,7 @@ public class WeatherParser {
         int maxTemp;
         int tmp = 1;
 
-        for (int i = 0; i < rowItems.size(); i += 7) {
+        for (int i = 0; i < rowItems.size() - 7; i += 7) {
             for (int j = 0; j < 7; j++) {
                 if (current > 7) {
                     current = 1;

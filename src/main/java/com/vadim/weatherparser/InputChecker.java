@@ -9,7 +9,7 @@ import java.io.InputStreamReader;
 
 public class InputChecker {
 
-    private static Logger logger = LogManager.getLogger(InputChecker.class);
+   // private static Logger logger = LogManager.getLogger(InputChecker.class);
 
     public static Integer getInteger(int from, int to) {
         boolean isCorrect = true;
@@ -17,15 +17,16 @@ public class InputChecker {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         do {
             try {
-                result = bufferedReader.read();
-                if (result < from || result < to) {
+                result = Integer.parseInt(bufferedReader.readLine());
+                if (result < from || result > to) {
                     isCorrect = false;
                 }
             } catch (IOException exception) {
-                logger.error("Class: " + InputChecker.class + " Method: getInteger " + "exception: " + exception + " info: " + exception.getMessage());
+     //           logger.error("Class: " + InputChecker.class + " Method: getInteger " + "exception: " + exception + " info: " + exception.getMessage());
+                System.out.println("Incorrect");
                 isCorrect = false;
             }
-        } while (isCorrect);
+        } while (!isCorrect);
         return result;
     }
 }

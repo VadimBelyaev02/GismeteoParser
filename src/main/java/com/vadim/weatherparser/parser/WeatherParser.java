@@ -30,7 +30,7 @@ public class WeatherParser {
         int maxTemp;
         int tmp = 1;
 
-        for (int i = 0; i < rowItems.size() - 7; i += 7) {
+        for (int i = 0; i < rowItems.size(); i += 7) {
             for (int j = 0; j < 7; j++) {
                 if (current > 7) {
                     current = 1;
@@ -40,10 +40,10 @@ public class WeatherParser {
                     tag = "div[class=date item-day-" + current + " bold]";
                 }
                 current++;
-                System.out.println(tag);
-                System.out.println(rowItems.get(i + j).select(tag).first());
+//                System.out.println(tag);
+//                System.out.println(rowItems.get(i + j).select(tag).first());
                 date = Integer.parseInt(rowItems.get(i + j).select(tag).text().split(" ")[0]);
-                System.out.println(date + "  ");
+//                System.out.println(date + "  ");
                 maxTemp = parseInt(rowItems.get(i + j).select("div[class=maxt]").text()
                         .split(" ")[0]);
                 minTemp = parseInt(rowItems.get(i + j).select("div[class=mint]").text()
@@ -58,7 +58,6 @@ public class WeatherParser {
                 weathers.add(weather);
             }
         }
-        // WILL BE REFACTORED !!!
         return weathers;
     }
 
@@ -68,7 +67,7 @@ public class WeatherParser {
             throw new RuntimeException();
         }
         if (str.charAt(0) == 8722) {
-            number = Integer.parseInt(str.substring(1, str.length()));
+            number = Integer.parseInt(str.substring(1));
             number *= -1;
         }
         else {

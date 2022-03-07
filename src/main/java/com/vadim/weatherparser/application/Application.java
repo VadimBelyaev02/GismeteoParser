@@ -14,11 +14,10 @@ import static com.vadim.weatherparser.InputChecker.getInteger;
 public class Application {
 
     private final static CityServiceImpl cityService = new CityServiceImpl();
+    private static List<Weather> weathers;
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-      //  Weather weather;
-       // List<Weather> weathers;
         printCities();
         System.out.print("Enter a city: ");
         String city = scanner.nextLine();
@@ -26,17 +25,17 @@ public class Application {
         String cityUrl = "https://www.gismeteo.by" + cityService.getCityUrl(city) + "/month/";
         WeatherServiceImpl weatherService = new WeatherServiceImpl(cityUrl);
         printChoice();
-        int choice = getInteger(0, 8);
+        int choice = getInteger(1, 8);
 
         switch (choice) {
             case 1:
                 System.out.println("Enter a day: ");
-                int day = scanner.nextInt();
+                int day = getInteger(0, 30);
                 Weather weather = weatherService.getDayWeather(day);
                 System.out.println(weather);
                 break;
             case 2:
-                List<Weather> weathers = weatherService.getMonthWeather();
+                weathers = weatherService.getMonthWeather();
           //      weathers.forEach(System.out::println);
                 printWeather(weathers);
                 break;
@@ -67,6 +66,9 @@ public class Application {
                 //weathers.forEach(System.out::println);
                 printWeather(weathers);
                 break;
+            case 9:
+                printWeather(weathers);
+                break;
         }
     }
 
@@ -79,6 +81,7 @@ public class Application {
         System.out.println("6 - Get the coldest night");
         System.out.println("7 - Get sorted day weather");
         System.out.println("8 - Get sorted night weather");
+        System.out.println("9 - Output table");
     }
 
     public static void printCities() {
@@ -101,16 +104,14 @@ public class Application {
             System.out.println("Weather is empty");
             return;
         }
-        String horizontalDividingLine = "----------------------------------------------------";
-        String verticalDividingLine = "|\n|\n|";
+        String hLine = "----------------------------------------------------";
+        String vLine = " | ";
         System.out.println("\n***Here is the weather for the next about 30 days***");
         System.out.println("%-20Date%-20sDay Temperature%-20sNight Temperature%-20sDay of week");
         System.out.println("");
         for (Weather weather : weathers) {
-            System.out.println(weather.getMaxTemp());
-            System.out.println(weather.getMaxTemp());
-            System.out.println(weather.getMaxTemp());
-            System.out.println(weather.getMaxTemp());
+            System.out.print(vLine + weather.getDate() + vLine +  weather.getDayOfWeek() + vLine);
+            System.out.print(weather.getMinTemp() + vLine + weather.getMaxTemp() + vLine + hLine);
         }
 
     }

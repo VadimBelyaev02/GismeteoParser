@@ -36,38 +36,36 @@ public class Application {
                 break;
             case 2:
                 weathers = weatherService.getMonthWeather();
-          //      weathers.forEach(System.out::println);
-                printWeather(weathers);
+                printWeather();
                 break;
             case 3:
                 weather = weatherService.getHottest(true);
-                System.out.println(weather);
+                printDayWeather(weather);
                 break;
             case 4:
                 weather = weatherService.getHottest(false);
-                System.out.println(weather);
+                printDayWeather(weather);
                 break;
             case 5:
                 weather = weatherService.getColdest(true);
-                System.out.println(weather);
+                printDayWeather(weather);
                 break;
             case 6:
                 weather = weatherService.getColdest(false);
-                System.out.println(weather);
+                printDayWeather(weather);
                 break;
             case 7:
-                Comparator<Weather> comparator = (a, b) ->  a.getMaxTemp() - b.getMaxTemp();
+                Comparator<Weather> comparator = (a, b) -> a.getMaxTemp() - b.getMaxTemp();
                 weathers = weatherService.getSortedWeather(comparator, true);
-                weathers.forEach(System.out::println);
+                printWeather();
                 break;
             case 8:
-                comparator = (a, b) ->  a.getMinTemp() - b.getMinTemp();
+                comparator = (a, b) -> a.getMinTemp() - b.getMinTemp();
                 weathers = weatherService.getSortedWeather(comparator, false);
-                //weathers.forEach(System.out::println);
-                printWeather(weathers);
+                printWeather();
                 break;
             case 9:
-                printWeather(weathers);
+                printWeather();
                 break;
         }
     }
@@ -99,7 +97,7 @@ public class Application {
         System.out.println();
     }
 
-    public static void printWeather(List<Weather> weathers) {
+    public static void printWeather() {
         if (Objects.isNull(weathers) || weathers.size() == 0) {
             System.out.println("Weather is empty");
             return;
@@ -109,7 +107,7 @@ public class Application {
         System.out.println("\n***Here is the weather for the next about 30 days***");
         System.out.printf("%-10s%-15s%-20s%-20s\n", vLine + "Date", vLine + "Day of week", vLine + "Day Temperature", vLine + "Night Temperature" + vLine + hLine);
         for (Weather weather : weathers) {
-            System.out.print(vLine + weather.getDate() + vLine +  weather.getDayOfWeek() + vLine);
+            System.out.print(vLine + weather.getDate() + vLine + weather.getDayOfWeek() + vLine);
             System.out.print(weather.getMinTemp() + vLine + weather.getMaxTemp() + vLine + hLine);
         }
     }

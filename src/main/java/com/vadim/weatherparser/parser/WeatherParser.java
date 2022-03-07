@@ -10,14 +10,14 @@ import java.util.List;
 
 public class WeatherParser {
 
-    public Weather toWeather(Element element) {
-        int current = LocalDate.now().getDayOfWeek().getValue();
-
-
-        Element element1 = element.select("div[class=date item-day-" + current + "]").first();
-        System.out.println(element1);
-        return null;
-    }
+//    public Weather toWeather(Element element) {
+//        int current = LocalDate.now().getDayOfWeek().getValue();
+//
+//
+//        Element element1 = element.select("div[class=date item-day-" + current + "]").first();
+//        System.out.println(element1);
+//        return null;
+//    }
 
     public List<Weather> toListWeather(Element element) {
         List<Weather> weathers = new ArrayList<>();
@@ -25,10 +25,7 @@ public class WeatherParser {
         int current = LocalDate.now().getDayOfWeek().getValue();
         DayOfWeek dayOfWeek = LocalDate.now().getDayOfWeek();
 
-        int date;
-        int minTemp;
-        int maxTemp;
-        int tmp = 1;
+        int date, minTemp, maxTemp, tmp = 1;
 
         for (int i = 0; i < rowItems.size(); i += 7) {
             for (int j = 0; j < 7; j++) {
@@ -40,10 +37,7 @@ public class WeatherParser {
                     tag = "div[class=date item-day-" + current + " bold]";
                 }
                 current++;
-//                System.out.println(tag);
-//                System.out.println(rowItems.get(i + j).select(tag).first());
                 date = Integer.parseInt(rowItems.get(i + j).select(tag).text().split(" ")[0]);
-//                System.out.println(date + "  ");
                 maxTemp = parseInt(rowItems.get(i + j).select("div[class=maxt]").text()
                         .split(" ")[0]);
                 minTemp = parseInt(rowItems.get(i + j).select("div[class=mint]").text()

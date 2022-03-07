@@ -32,7 +32,7 @@ public class Application {
                 System.out.println("Enter a day: ");
                 int day = getInteger(0, 30);
                 Weather weather = weatherService.getDayWeather(day);
-                System.out.println(weather);
+                printDayWeather(weather);
                 break;
             case 2:
                 weathers = weatherService.getMonthWeather();
@@ -104,16 +104,28 @@ public class Application {
             System.out.println("Weather is empty");
             return;
         }
-        String hLine = "----------------------------------------------------";
+        String hLine = "\n----------------------------------------------------\n";
         String vLine = " | ";
         System.out.println("\n***Here is the weather for the next about 30 days***");
-        System.out.println("%-20Date%-20sDay Temperature%-20sNight Temperature%-20sDay of week");
-        System.out.println("");
+        System.out.printf("%-10s%-15s%-20s%-20s\n", vLine + "Date", vLine + "Day of week", vLine + "Day Temperature", vLine + "Night Temperature" + vLine + hLine);
         for (Weather weather : weathers) {
             System.out.print(vLine + weather.getDate() + vLine +  weather.getDayOfWeek() + vLine);
             System.out.print(weather.getMinTemp() + vLine + weather.getMaxTemp() + vLine + hLine);
         }
+    }
 
+    public static void printDayWeather(Weather weather) {
+        if (Objects.isNull(weather)) {
+            return;
+        }
+        String hLine = "\n-------------------------------------------------------------------\n";
+        String vLine = " | ";
+        System.out.println(hLine);
+        System.out.printf("%-10s%-15s%-20s%-20s\n", vLine + "Date", vLine + "Day of week", vLine + "Day Temperature", vLine + "Night Temperature" + vLine);
+        System.out.println(hLine);
+        System.out.printf("%-10s%-15s", vLine + weather.getDate(), vLine + weather.getDayOfWeek().toString());
+        System.out.printf("%-20s%-20s%3s", vLine + weather.getMinTemp(), vLine + weather.getMaxTemp(), vLine);
+        System.out.println(hLine);
     }
 
 

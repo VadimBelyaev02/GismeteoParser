@@ -1,6 +1,8 @@
 package com.vadim.weatherparser.parser;
 
 import com.vadim.weatherparser.model.Weather;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jsoup.nodes.Element;
 
 import java.time.DayOfWeek;
@@ -10,9 +12,12 @@ import java.util.List;
 
 public class WeatherParser {
 
-
+    private final static Logger logger = LogManager.getLogger(WeatherParser.class);
 
     public List<Weather> toListWeather(Element element) {
+
+        logger.info("Parsing the weather for the months");
+
         List<Weather> weathers = new ArrayList<>();
         List<Element> rowItems = element.select("a[class=row-item]");
         int current = LocalDate.now().getDayOfWeek().getValue();
@@ -49,8 +54,10 @@ public class WeatherParser {
     }
 
     public int parseInt(String str) {
+        logger.info("Parsing integer");
         int number;
         if (str.isEmpty()) {
+            logger.error("Can not parse integer");
             throw new RuntimeException();
         }
         if (str.charAt(0) == 8722) {

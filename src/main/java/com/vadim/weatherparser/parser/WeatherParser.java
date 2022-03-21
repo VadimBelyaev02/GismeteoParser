@@ -10,14 +10,7 @@ import java.util.List;
 
 public class WeatherParser {
 
-//    public Weather toWeather(Element element) {
-//        int current = LocalDate.now().getDayOfWeek().getValue();
-//
-//
-//        Element element1 = element.select("div[class=date item-day-" + current + "]").first();
-//        System.out.println(element1);
-//        return null;
-//    }
+
 
     public List<Weather> toListWeather(Element element) {
         List<Weather> weathers = new ArrayList<>();

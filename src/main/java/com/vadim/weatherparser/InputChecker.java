@@ -9,9 +9,10 @@ import java.io.InputStreamReader;
 
 public class InputChecker {
 
-   // private static Logger logger = LogManager.getLogger(InputChecker.class);
+    private static Logger logger = LogManager.getLogger(InputChecker.class);
 
     public static Integer getInteger(int from, int to) {
+        logger.info("Class: " + InputChecker.class + " Method: getInteger " + "params: from = " + from + " to = " + to);
         boolean isCorrect = true;
         int result = 0;
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
@@ -22,8 +23,7 @@ public class InputChecker {
                     isCorrect = false;
                 }
             } catch (IOException exception) {
-     //           logger.error("Class: " + InputChecker.class + " Method: getInteger " + "exception: " + exception + " info: " + exception.getMessage());
-                System.out.println("Incorrect");
+                logger.error("Class: " + InputChecker.class + " Method: getInteger " + "exception: " + exception + " info: " + exception.getMessage());
                 isCorrect = false;
             }
         } while (!isCorrect);

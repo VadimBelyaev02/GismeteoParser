@@ -1,4 +1,4 @@
-package com.vadim.weatherparser;
+package com.vadim.weatherparser.utils;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

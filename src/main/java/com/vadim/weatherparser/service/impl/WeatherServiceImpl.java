@@ -19,22 +19,12 @@ public class WeatherServiceImpl implements WeatherService {
     }
 
     @Override
-    public Weather getWeather(String city) {
-        return null;
-    }
-
-    @Override
     public Weather getDayWeather(int day) {
         return storage.getDayWeather(day);
     }
 
     @Override
     public List<Weather> getMonthWeather() {
-        return storage.getWeathers();
-    }
-
-    @Override
-    public List<Weather> getWeathers() {
         return storage.getWeathers();
     }
 

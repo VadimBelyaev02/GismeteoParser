@@ -3,10 +3,7 @@ package com.vadim.weatherparser.application;
 import com.vadim.weatherparser.model.Weather;
 import com.vadim.weatherparser.service.impl.CityServiceImpl;
 import com.vadim.weatherparser.service.impl.WeatherServiceImpl;
-import org.springframework.cglib.core.Local;
 
-import java.time.LocalDate;
-import java.time.Month;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
@@ -34,7 +31,7 @@ public class Application {
             switch (choice) {
                 case 1:
                     System.out.println("Enter a day: ");
-                    int day = getInteger(0, 30);
+                    int day = getInteger(1, 31);
                     Weather weather = weatherService.getDayWeather(day);
                     printDayWeather(weather);
                     break;
@@ -71,7 +68,6 @@ public class Application {
                 case 9:
                     printWeather();
                     break;
-                case 10:
                 default:
                     return;
             }
@@ -110,14 +106,13 @@ public class Application {
             System.out.println("Weather is empty");
             return;
         }
-    //    Month month = LocalDate.now().getMonth();
-        String hLine = "\n----------------------------------------------------\n";
+        String hLine = "\n--------------------------------------------------------\n";
         String vLine = " | ";
         System.out.println("\n***Here is the weather for the next month***");
-        System.out.printf("%-10s%-15s%-20s%-20s\n", vLine + "Date", vLine + "Day of week", vLine + "Day Temperature", vLine + "Night Temperature" + vLine + "Month" + vLine + hLine);
+        System.out.printf("%-15s%-15s%-20s%-20s\n", vLine + "Date", vLine + "Day of week", vLine + "Day Temperature", vLine + "Night Temperature" + vLine + hLine);
         for (Weather weather : weathers) {
-            System.out.print(vLine + weather.getDate() + vLine + weather.getDayOfWeek() + vLine);
-            System.out.print(weather.getMinTemp() + vLine + weather.getMaxTemp() + vLine + hLine);
+            System.out.printf("%-15s%-15s", vLine + weather.getDate(), vLine + weather.getDayOfWeek());
+            System.out.printf("%-20s%-20s", vLine + weather.getMinTemp(), vLine + weather.getMaxTemp() + vLine + hLine);
         }
     }
 

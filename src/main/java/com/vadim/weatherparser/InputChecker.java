@@ -13,18 +13,17 @@ public class InputChecker {
 
     public static Integer getInteger(int from, int to) {
         logger.info("Class: " + InputChecker.class + " Method: getInteger " + "params: from = " + from + " to = " + to);
-        boolean isCorrect = true;
+        boolean isCorrect = false;
         int result = 0;
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         do {
             try {
                 result = Integer.parseInt(bufferedReader.readLine());
-                if (result < from || result > to) {
-                    isCorrect = false;
+                if (result >= from && result <= to) {
+                    isCorrect = true;
                 }
             } catch (IOException exception) {
                 logger.error("Class: " + InputChecker.class + " Method: getInteger " + "exception: " + exception + " info: " + exception.getMessage());
-                isCorrect = false;
             }
         } while (!isCorrect);
         return result;

@@ -36,7 +36,7 @@ public class WeatherStorageImpl implements WeatherStorage {
 
     @Override
     public Weather getDayWeather(int day) {
-        return weathers.stream().filter(a -> a.getDate().equals(day)).findFirst().orElseThrow(() ->
+        return weathers.stream().filter(weather -> weather.getDate().getDayOfMonth() == day).findFirst().orElseThrow(() ->
                 new NotFoundException("The weather in this day is not found")
         );
     }

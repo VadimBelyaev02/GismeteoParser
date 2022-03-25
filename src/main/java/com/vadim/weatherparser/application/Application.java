@@ -55,13 +55,13 @@ public class Application {
                 printDayWeather(weather);
                 break;
             case 7:
-                Comparator<Weather> comparator = (a, b) -> a.getMaxTemp() - b.getMaxTemp();
-                weathers = weatherService.getSortedWeather(comparator, true);
+                Comparator<Weather> comparator = Comparator.comparingInt(Weather::getMaxTemp);
+                weathers = weatherService.getSortedWeather(comparator);
                 printWeather();
                 break;
             case 8:
-                comparator = (a, b) -> a.getMinTemp() - b.getMinTemp();
-                weathers = weatherService.getSortedWeather(comparator, false);
+                comparator = Comparator.comparingInt(Weather::getMinTemp);
+                weathers = weatherService.getSortedWeather(comparator);
                 printWeather();
                 break;
             case 9:

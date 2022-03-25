@@ -53,6 +53,7 @@ public class WeatherServiceImpl implements WeatherService {
     @Override
     public Weather getColdest(boolean isDay) {
         Optional<Weather> weatherOptional;
+        Weather weather;
         if (isDay) {
             weatherOptional = storage.getWeathers().stream().min(Comparator.comparingInt(Weather::getMaxTemp));
         }
@@ -63,7 +64,7 @@ public class WeatherServiceImpl implements WeatherService {
     }
 
     @Override
-    public List<Weather> getSortedWeather(Comparator<Weather> comparator, boolean isDay) {
+    public List<Weather> getSortedWeather(Comparator<Weather> comparator) {
         return storage.getWeathers().stream()
                 .sorted(comparator)
                 .collect(Collectors.toList());

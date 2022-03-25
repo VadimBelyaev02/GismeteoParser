@@ -19,5 +19,5 @@ public interface WeatherService {
 
     Weather getColdest(boolean isDay);
 
-    List<Weather> getSortedWeather(Comparator<Weather> comparator, boolean isDay);
+    List<Weather> getSortedWeather(Comparator<Weather> comparator);
 }

@@ -1,13 +1,15 @@
 package com.vadim.weatherparser.model;
 
 import java.time.DayOfWeek;
+import java.time.LocalDate;
 
 public class Weather {
 
     private Integer maxTemp;
     private Integer minTemp;
     private DayOfWeek dayOfWeek;
-    private Integer date;
+ //   private Integer date;
+    private LocalDate date;
 
     public Integer getMaxTemp() {
         return maxTemp;
@@ -33,11 +35,11 @@ public class Weather {
         this.dayOfWeek = dayOfWeek;
     }
 
-    public Integer getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Integer date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

@@ -3,7 +3,10 @@ package com.vadim.weatherparser.application;
 import com.vadim.weatherparser.model.Weather;
 import com.vadim.weatherparser.service.impl.CityServiceImpl;
 import com.vadim.weatherparser.service.impl.WeatherServiceImpl;
+import org.springframework.cglib.core.Local;
 
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
@@ -24,49 +27,54 @@ public class Application {
 
         String cityUrl = "https://www.gismeteo.by" + cityService.getCityUrl(city) + "/month/";
         WeatherServiceImpl weatherService = new WeatherServiceImpl(cityUrl);
-        printChoice();
-        int choice = getInteger(1, 8);
 
-        switch (choice) {
-            case 1:
-                System.out.println("Enter a day: ");
-                int day = getInteger(0, 30);
-                Weather weather = weatherService.getDayWeather(day);
-                printDayWeather(weather);
-                break;
-            case 2:
-                weathers = weatherService.getMonthWeather();
-                printWeather();
-                break;
-            case 3:
-                weather = weatherService.getHottest(true);
-                printDayWeather(weather);
-                break;
-            case 4:
-                weather = weatherService.getHottest(false);
-                printDayWeather(weather);
-                break;
-            case 5:
-                weather = weatherService.getColdest(true);
-                printDayWeather(weather);
-                break;
-            case 6:
-                weather = weatherService.getColdest(false);
-                printDayWeather(weather);
-                break;
-            case 7:
-                Comparator<Weather> comparator = Comparator.comparingInt(Weather::getMaxTemp);
-                weathers = weatherService.getSortedWeather(comparator);
-                printWeather();
-                break;
-            case 8:
-                comparator = Comparator.comparingInt(Weather::getMinTemp);
-                weathers = weatherService.getSortedWeather(comparator);
-                printWeather();
-                break;
-            case 9:
-                printWeather();
-                break;
+        while (true) {
+            printChoice();
+            int choice = getInteger(1, 8);
+            switch (choice) {
+                case 1:
+                    System.out.println("Enter a day: ");
+                    int day = getInteger(0, 30);
+                    Weather weather = weatherService.getDayWeather(day);
+                    printDayWeather(weather);
+                    break;
+                case 2:
+                    weathers = weatherService.getMonthWeather();
+                    printWeather();
+                    break;
+                case 3:
+                    weather = weatherService.getHottest(true);
+                    printDayWeather(weather);
+                    break;
+                case 4:
+                    weather = weatherService.getHottest(false);
+                    printDayWeather(weather);
+                    break;
+                case 5:
+                    weather = weatherService.getColdest(true);
+                    printDayWeather(weather);
+                    break;
+                case 6:
+                    weather = weatherService.getColdest(false);
+                    printDayWeather(weather);
+                    break;
+                case 7:
+                    Comparator<Weather> comparator = Comparator.comparingInt(Weather::getMaxTemp);
+                    weathers = weatherService.getSortedWeather(comparator);
+                    printWeather();
+                    break;
+                case 8:
+                    comparator = Comparator.comparingInt(Weather::getMinTemp);
+                    weathers = weatherService.getSortedWeather(comparator);
+                    printWeather();
+                    break;
+                case 9:
+                    printWeather();
+                    break;
+                case 10:
+                default:
+                    return;
+            }
         }
     }
 
@@ -102,10 +110,11 @@ public class Application {
             System.out.println("Weather is empty");
             return;
         }
+    //    Month month = LocalDate.now().getMonth();
         String hLine = "\n----------------------------------------------------\n";
         String vLine = " | ";
-        System.out.println("\n***Here is the weather for the next about 30 days***");
-        System.out.printf("%-10s%-15s%-20s%-20s\n", vLine + "Date", vLine + "Day of week", vLine + "Day Temperature", vLine + "Night Temperature" + vLine + hLine);
+        System.out.println("\n***Here is the weather for the next month***");
+        System.out.printf("%-10s%-15s%-20s%-20s\n", vLine + "Date", vLine + "Day of week", vLine + "Day Temperature", vLine + "Night Temperature" + vLine + "Month" + vLine + hLine);
         for (Weather weather : weathers) {
             System.out.print(vLine + weather.getDate() + vLine + weather.getDayOfWeek() + vLine);
             System.out.print(weather.getMinTemp() + vLine + weather.getMaxTemp() + vLine + hLine);

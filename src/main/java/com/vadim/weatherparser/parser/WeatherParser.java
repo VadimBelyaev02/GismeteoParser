@@ -4,6 +4,7 @@ import com.vadim.weatherparser.model.Weather;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jsoup.nodes.Element;
+import org.springframework.cglib.core.Local;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -22,10 +23,13 @@ public class WeatherParser {
         List<Element> rowItems = element.select("a[class=row-item]");
         int current = LocalDate.now().getDayOfWeek().getValue();
         DayOfWeek dayOfWeek = LocalDate.now().getDayOfWeek();
+        LocalDate date;
 
-        int date, minTemp, maxTemp, tmp = 1;
+        int dayOfMonth, minTemp, maxTemp, tmp = 1;
 
-        for (int i = 0; i < rowItems.size(); i += 7) {
+
+
+        for (int i = 0; i < rowItems.size() - current; i += 7) {
             for (int j = 0; j < 7; j++) {
                 if (current > 7) {
                     current = 1;
@@ -35,7 +39,8 @@ public class WeatherParser {
                     tag = "div[class=date item-day-" + current + " bold]";
                 }
                 current++;
-                date = Integer.parseInt(rowItems.get(i + j).select(tag).text().split(" ")[0]);
+                dayOfMonth = Integer.parseInt(rowItems.get(i + j).select(tag).text().split(" ")[0]);
+                date = LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), dayOfMonth);
                 maxTemp = parseInt(rowItems.get(i + j).select("div[class=maxt]").text()
                         .split(" ")[0]);
                 minTemp = parseInt(rowItems.get(i + j).select("div[class=mint]").text()

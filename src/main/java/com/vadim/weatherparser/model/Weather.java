@@ -8,8 +8,14 @@ public class Weather {
     private Integer maxTemp;
     private Integer minTemp;
     private DayOfWeek dayOfWeek;
- //   private Integer date;
     private LocalDate date;
+
+    public Weather(Integer maxTemp, Integer minTemp, DayOfWeek dayOfWeek, LocalDate date) {
+        this.maxTemp = maxTemp;
+        this.minTemp = minTemp;
+        this.dayOfWeek = dayOfWeek;
+        this.date = date;
+    }
 
     public Integer getMaxTemp() {
         return maxTemp;

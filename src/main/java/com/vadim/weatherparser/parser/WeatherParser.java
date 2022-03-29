@@ -16,18 +16,13 @@ public class WeatherParser {
     private final static Logger logger = LogManager.getLogger(WeatherParser.class);
 
     public List<Weather> toListWeather(Element element) {
-
         logger.info("Parsing the weather for the months");
-
         List<Weather> weathers = new ArrayList<>();
         List<Element> rowItems = element.select("a[class=row-item]");
         int current = LocalDate.now().getDayOfWeek().getValue();
         DayOfWeek dayOfWeek = LocalDate.now().getDayOfWeek();
         LocalDate date;
-
         int dayOfMonth, minTemp, maxTemp, tmp = 1;
-
-
 
         for (int i = 0; i < rowItems.size() - current; i += 7) {
             for (int j = 0; j < 7; j++) {
@@ -46,11 +41,7 @@ public class WeatherParser {
                 minTemp = parseInt(rowItems.get(i + j).select("div[class=mint]").text()
                         .split(" ")[tmp]);
                 tmp = 0;
-                Weather weather = new Weather();
-                weather.setDate(date);
-                weather.setMaxTemp(maxTemp);
-                weather.setMinTemp(minTemp);
-                weather.setDayOfWeek(dayOfWeek);
+                Weather weather = new Weather(maxTemp, minTemp, dayOfWeek, date);
                 dayOfWeek = dayOfWeek.plus(1);
                 weathers.add(weather);
             }
